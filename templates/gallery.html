@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - AI Image Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-magic"></i>
+                <h1>AI Image Generator</h1>
+            </div>
+            <nav class="nav">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Generate
+                </a>
+                <a href="/gallery" class="nav-link active">
+                    <i class="fas fa-images"></i>
+                    Gallery
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Gallery Header -->
+            <section class="gallery-header">
+                <h2>Your Generated Images</h2>
+                <p>Browse through all your AI-generated masterpieces</p>
+                <div class="gallery-stats">
+                    <span class="stat">
+                        <i class="fas fa-images"></i>
+                        {{ images|length }} Images
+                    </span>
+                    {% if storage_info %}
+                    <span class="stat">
+                        <i class="fas fa-{{ 'cloud' if storage_info.storage_type == 'AWS S3' else 'hdd' }}"></i>
+                        {{ storage_info.storage_type }}
+                        {% if storage_info.bucket_name %}
+                        ({{ storage_info.bucket_name }})
+                        {% endif %}
+                    </span>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Gallery Grid -->
+            <section class="gallery-section">
+                {% if images %}
+                    <div class="gallery-grid">
+                        {% for image in images %}
+                            <div class="gallery-item" onclick="openImageModal('{{ image.url }}', '{{ image.filename }}', '{{ image.timestamp }}')">
+                                <div class="image-container">
+                                    <img src="{{ image.url }}" alt="{{ image.filename }}" loading="lazy">
+                                    <div class="image-overlay">
+                                        <button class="view-btn">
+                                            <i class="fas fa-eye"></i>
+                                            View
+                                        </button>
+                                        <button class="download-btn" onclick="event.stopPropagation(); downloadImage('{{ image.url }}', '{{ image.filename }}')">
+                                            <i class="fas fa-download"></i>
+                                            Download
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="image-info">
+                                    <span class="image-name">{{ image.filename }}</span>
+                                    <span class="image-date">{{ image.timestamp }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-gallery">
+                        <i class="fas fa-image"></i>
+                        <h3>No images yet</h3>
+                        <p>Start generating some amazing AI images!</p>
+                        <a href="/" class="generate-link">
+                            <i class="fas fa-magic"></i>
+                            Generate Your First Image
+                        </a>
+                    </div>
+                {% endif %}
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 AI Image Generator. Powered by Infip Pro API.</p>
+        </footer>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeImageModal()">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDate"></p>
+                <button class="modal-download-btn" onclick="downloadModalImage()">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+</body>
+</html>

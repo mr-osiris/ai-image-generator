@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator - Infip Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-magic"></i>
+                <h1>AI Image Generator</h1>
+            </div>
+            <nav class="nav">
+                <a href="/" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    Generate
+                </a>
+                <a href="/gallery" class="nav-link">
+                    <i class="fas fa-images"></i>
+                    Gallery
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2>Create Stunning AI Images</h2>
+                <p>Transform your imagination into beautiful artwork using cutting-edge AI technology</p>
+            </section>
+
+            <!-- Generation Form -->
+            <section class="generation-section">
+                <div class="form-container">
+                    <form id="imageForm" class="image-form">
+                        <!-- Prompt Input -->
+                        <div class="form-group">
+                            <label for="prompt" class="form-label">
+                                <i class="fas fa-pen-fancy"></i>
+                                Describe your image
+                            </label>
+                            <textarea 
+                                id="prompt" 
+                                name="prompt" 
+                                placeholder="A beautiful sunset over mountains with a crystal clear lake reflecting the sky..."
+                                required
+                                rows="4"
+                                class="form-textarea"
+                            ></textarea>
+                        </div>
+
+                        <!-- Model Selection -->
+                        <div class="form-group">
+                            <label for="model" class="form-label">
+                                <i class="fas fa-robot"></i>
+                                AI Model
+                            </label>
+                            <select id="model" name="model" class="form-select" required>
+                                <option value="">Loading models...</option>
+                            </select>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div class="advanced-options">
+                            <button type="button" class="toggle-advanced" id="toggleAdvanced">
+                                <i class="fas fa-cog"></i>
+                                Advanced Options
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            
+                            <div class="advanced-content" id="advancedContent">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="size" class="form-label">Image Size</label>
+                                        <select id="size" name="size" class="form-select">
+                                            <option value="1024x1024">Square (1024×1024)</option>
+                                            <option value="1024x1792">Portrait (1024×1792)</option>
+                                            <option value="1792x1024">Landscape (1792×1024)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="quality" class="form-label">Quality</label>
+                                        <select id="quality" name="quality" class="form-select">
+                                            <option value="standard">Standard</option>
+                                            <option value="hd">HD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button type="submit" class="generate-btn" id="generateBtn">
+                            <i class="fas fa-magic"></i>
+                            <span class="btn-text">Generate Image</span>
+                            <div class="spinner" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h3>Generated Images</h3>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Generated images will appear here -->
+                </div>
+            </section>
+
+            <!-- Loading Animation -->
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="loading-spinner">
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                    </div>
+                    <h3>Creating your masterpiece...</h3>
+                    <p>This may take a few moments</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 AI Image Generator. Powered by Infip Pro API.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
