@@ -9,18 +9,22 @@ import boto3
 from botocore.exceptions import ClientError, NoCredentialsError
 from werkzeug.utils import secure_filename
 import io
+import dotenv
 
 app = Flask(__name__)
 
+# Load environment variables from .env file
+dotenv.load_dotenv()
+
 # Configuration
 API_BASE_URL = "https://api.infip.pro"
-API_KEY = "infip-22a92ff3"
+API_KEY = "infip-4d77b6aa"
 MEDIA_FOLDER = "media"
 
 # AWS S3 Configuration
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')
+AWS_REGION = os.environ.get('AWS_REGION', 'ap-south-1')
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 USE_S3 = os.environ.get('USE_S3', 'false').lower() == 'true'
 
