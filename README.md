@@ -152,3 +152,6 @@ If you encounter issues:
 4. Check EC2 security groups
 
 **Happy generating!** 🎨✨
+
+https://chat.infip.pro/
+
