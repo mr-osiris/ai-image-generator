@@ -154,4 +154,4 @@ If you encounter issues:
 **Happy generating!** 🎨✨
 
 https://chat.infip.pro/
-.
+
