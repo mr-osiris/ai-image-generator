@@ -157,5 +157,3 @@ https://chat.infip.pro/
 
 this was also a part of cloud FA activity.
 
-wooooo
-
